@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pneumonia Disease Detection</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-image: url('https://wallpaperaccess.com/full/1267584.jpg'); /* Replace with your background image URL */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #333; /* Change text color to dark */
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            text-align: center;
+            margin: 0 auto;
+            margin-top: 10vh; /* Adjusted margin-top for better centering */
+        }
+
+        h1 {
+            color: #007bff;
+            font-size: 2.5em; /* Increased font size */
+        }
+
+        p {
+            margin-bottom: 20px;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 20px;
+            cursor: pointer;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        label:hover {
+            background-color: #0056b3;
+        }
+
+        #imagePreview {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+
+        #submitBtn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #submitBtn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; font-size: 3em;">Pneumonia Disease Detection</h1>
+    <div class="container">
+        <p>Upload a chest X-ray image to check for pneumonia.</p>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <label for="fileInput">Choose Image</label>
+            <input type="file" id="fileInput" name="file" accept=".jpg, .jpeg, .png">
+            <div id="imagePreview"></div>
+            <button id="submitBtn" type="submit">Submit</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById("fileInput").addEventListener("change", function() {
+            const fileInput = document.getElementById("fileInput");
+            const imagePreview = document.getElementById("imagePreview");
+            
+            const file = fileInput.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    imagePreview.innerHTML = `<img src="${e.target.result}" alt="Preview" style="max-width: 100%;">`;
+                };
+                reader.readAsDataURL(file);
+            } else {
+                imagePreview.innerHTML = "";
+            }
+        });
+    </script>
+</body>
+</html>
